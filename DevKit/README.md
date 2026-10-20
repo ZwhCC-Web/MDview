@@ -2,6 +2,8 @@
 
 仿 Typora 的高性能 Markdown 编辑器。网页版是单个 HTML 文件；桌面版用 Tauri 2 封装同一个界面。
 
+桌面版 GitHub Actions 工作流位于仓库根目录 `.github/workflows/build.yml`。
+
 ```
 web/
   src/                 源码（parser.js、app1~app5、app.css、template.html、sample.md、vendor/）
@@ -9,7 +11,6 @@ web/
   dist/MDView.html     构建产物（网页版本体）
   test/                端到端测试（Playwright + Chromium）：python test/run_all.py
   bench/               性能测试与结果 RESULTS.md
-.github/workflows/     GitHub Actions：自动构建 Windows 安装包
 desktop/
   src-tauri/           Rust 外壳（main.rs、tauri.conf.json、capabilities）
   mcp/                 MCP 服务 mdview_mcp.py + test_mcp.py + README
