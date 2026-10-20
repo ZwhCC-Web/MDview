@@ -1,0 +1,13 @@
+{
+  "name": "mdview-desktop",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "libs": "node scripts/copy-libs.mjs",
+    "icon": "tauri icon app-icon.png",
+    "dev": "tauri dev",
+    "build": "tauri build"
+  },
+  "dependencies": { "katex": "0.16.11", "mermaid": "10.9.1", "wavedrom": "3.5.0" },
+  "devDependencies": { "@tauri-apps/cli": "^2" }
+}

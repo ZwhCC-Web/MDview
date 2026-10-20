@@ -1,0 +1,33 @@
+name: Build MDView Desktop
+on:
+  workflow_dispatch:
+  push:
+    tags: ['v*']
+jobs:
+  windows:
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: desktop
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: swatinem/rust-cache@v2
+        with: { workspaces: desktop/src-tauri }
+      - name: MCP server self-test
+        run: python mcp/test_mcp.py
+      - run: npm install
+      - run: npm run libs
+      - run: npx tauri icon app-icon.png
+      - run: npx tauri build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: MDView-Windows
+          path: |
+            desktop/src-tauri/target/release/bundle/nsis/*.exe
+            desktop/src-tauri/target/release/bundle/msi/*.msi
+            desktop/src-tauri/target/release/mdview.exe

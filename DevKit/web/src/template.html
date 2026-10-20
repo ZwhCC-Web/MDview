@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="github">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MDView</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232f6fdb'/%3E%3Cpath d='M14 44V20h6l6 9 6-9h6v24h-6V31l-6 8-6-8v13z' fill='white'/%3E%3Cpath d='M44 34h6v-14h4v14h6l-8 10z' fill='white'/%3E%3C/svg%3E">
+<style id="mdv-style">/*CSS*/</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-side" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M9 4v16"/></symbol>
+  <symbol id="i-save" viewBox="0 0 24 24"><path d="M5 3h11l4 4v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 1-2z"/><path d="M8 3v5h7V3M8 21v-7h8v7"/></symbol>
+  <symbol id="i-focus" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-type" viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M10 8l4 2.5-4 2.5zM8 21h8M12 17v4"/></symbol>
+  <symbol id="i-ai" viewBox="0 0 24 24"><path d="M12 3l1.8 4.6L18.5 9.5l-4.7 1.9L12 16l-1.8-4.6L5.5 9.5l4.7-1.9z"/><path d="M19 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+  <symbol id="i-zoom" viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M4 12l16-8-6 16-2.5-6.5z"/></symbol>
+  <symbol id="i-stop" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
+</svg>
+<div id="app" class="mode-live">
+  <div id="topbar">
+    <div class="menu"><button>文件</button><div class="dropdown">
+      <div class="it" data-act="new">新建标签页<kbd>Ctrl+N</kbd></div>
+      <div class="it" data-act="newtpl">从模板新建…<kbd>Ctrl+Alt+N</kbd></div>
+      <div class="it" data-act="daily">今日工作日志<kbd>Ctrl+Alt+D</kbd></div>
+      <div class="it" data-act="open">打开文件…<kbd>Ctrl+O</kbd></div>
+      <div class="it" data-act="folder">打开文件夹…<kbd>Ctrl+Shift+O</kbd></div>
+      <div class="it" data-act="quick">快速打开…<kbd>Ctrl+P</kbd></div>
+      <div class="sep"></div>
+      <div class="it" data-act="save">保存<kbd>Ctrl+S</kbd></div>
+      <div class="it" data-act="saveas">另存为…<kbd>Ctrl+Shift+S</kbd></div>
+      <div class="it" data-act="saveall">全部保存<kbd>Ctrl+Alt+S</kbd></div>
+      <div class="it" data-act="history">历史版本…<kbd>Ctrl+Alt+H</kbd></div>
+      <div class="it" data-act="close">关闭标签<kbd>Ctrl+W</kbd></div>
+      <div class="it native-only" data-act="reveal">在资源管理器中显示</div>
+      <div class="sep"></div><div class="grp">导出</div>
+      <div class="it" data-act="docx">Word 文档 (.docx)</div>
+      <div class="it" data-act="pptx">PowerPoint 幻灯片 (.pptx)</div>
+      <div class="it" data-act="eml">Outlook 邮件草稿 (.eml)</div>
+      <div class="it" data-act="pdf">PDF（打印）<kbd>Ctrl+Alt+P</kbd></div>
+      <div class="it" data-act="html">HTML</div>
+      <div class="it" data-act="htmlinline">HTML（图片内嵌，单文件发送）</div>
+      <div class="it" data-act="slideshtml">幻灯片 HTML</div>
+      <div class="it" data-act="copymail">复制为邮件格式（Outlook / Teams）</div>
+      <div class="sep"></div>
+      <div class="it" data-act="prefs">偏好设置…<kbd>Ctrl+,</kbd></div>
+    </div></div>
+    <div class="menu"><button>编辑</button><div class="dropdown">
+      <div class="it" data-act="palette">命令面板…<kbd>Ctrl+Shift+P</kbd></div>
+      <div class="it" data-act="undo">撤销<kbd>Ctrl+Z</kbd></div>
+      <div class="it" data-act="redo">重做<kbd>Ctrl+Y</kbd></div>
+      <div class="sep"></div>
+      <div class="it" data-act="find">查找<kbd>Ctrl+F</kbd></div>
+      <div class="it" data-act="replace">替换<kbd>Ctrl+H</kbd></div>
+      <div class="it" data-act="gsearch">在文件夹中搜索<kbd>Ctrl+Shift+F</kbd></div>
+      <div class="sep"></div>
+      <div class="it" data-act="lint">文档检查</div>
+      <div class="it" data-act="cleanimg">清理未引用图片…</div>
+      <div class="it" data-act="toutf8">转换为 UTF-8 编码</div>
+      <div class="sep"></div>
+      <div class="it" data-pref="slash">“/” 插入菜单 · 双链 · Emoji 补全</div>
+      <div class="it" data-pref="autoPair">括号自动补全</div>
+      <div class="it" data-pref="tableFmt">表格自动对齐</div>
+      <div class="it" data-pref="richPaste">富文本粘贴转 Markdown</div>
+      <div class="it" data-pref="autosave">自动保存</div>
+    </div></div>
+    <div class="menu"><button>插入</button><div class="dropdown">
+      <div class="it" data-act="table">表格<kbd>Ctrl+Alt+T</kbd></div>
+      <div class="it" data-act="code">代码块<kbd>Ctrl+Shift+K</kbd></div>
+      <div class="it" data-act="math">公式块<kbd>Ctrl+Shift+M</kbd></div>
+      <div class="it" data-act="mermaid">Mermaid 流程图</div>
+      <div class="it" data-act="wave">WaveDrom 时序图</div>
+      <div class="it" data-act="reg">WaveDrom 寄存器位域图</div>
+      <div class="it" data-act="task">待办（带截止日期）</div>
+      <div class="it" data-act="alert">提示框（Alert）</div>
+      <div class="it" data-act="details">折叠块</div>
+      <div class="it" data-act="fn">脚注</div>
+      <div class="it" data-act="hr">分隔线 / 幻灯片分页</div>
+      <div class="it" data-act="toc">目录 [TOC]</div>
+      <div class="it" data-act="date">当前日期时间</div>
+    </div></div>
+    <div class="menu"><button>视图</button><div class="dropdown">
+      <div class="it" data-act="live">实时预览（所见即所得）</div>
+      <div class="it" data-act="source">源代码模式<kbd>Ctrl+/</kbd></div>
+      <div class="it" data-act="split">分屏模式<kbd>Ctrl+Alt+/</kbd></div>
+      <div class="it" data-act="present">演示幻灯片<kbd>F5</kbd></div>
+      <div class="it" data-act="graph">关系图谱<kbd>Ctrl+Shift+G</kbd></div>
+      <div class="sep"></div>
+      <div class="it" data-act="side">侧边栏<kbd>Ctrl+Shift+L</kbd></div>
+      <div class="it" data-act="links">反向链接<kbd>Ctrl+Shift+3</kbd></div>
+      <div class="it" data-act="tasks">待办汇总<kbd>Ctrl+Shift+4</kbd></div>
+      <div class="it" data-act="focus">专注模式<kbd>F8</kbd></div>
+      <div class="it" data-act="tw">打字机模式<kbd>F9</kbd></div>
+      <div class="it" data-pref="autoNum">标题自动编号</div>
+      <div class="it" data-pref="codeLines">代码块行号</div>
+      <div class="it" data-pref="srcLines">源码模式行号</div>
+      <div class="it" data-act="full">全屏<kbd>F11</kbd></div>
+      <div class="sep"></div>
+      <div class="it" data-act="zin">放大<kbd>Ctrl+=</kbd></div>
+      <div class="it" data-act="zout">缩小<kbd>Ctrl+-</kbd></div>
+    </div></div>
+    <div class="menu"><button>AI</button><div class="dropdown">
+      <div class="it" data-act="ai">AI 助手面板<kbd>Ctrl+J</kbd></div>
+      <div class="sep"></div><div class="grp">对选中文字 / 当前段落</div>
+      <div class="it" data-ai="polish">润色</div>
+      <div class="it" data-ai="shorten">精简</div>
+      <div class="it" data-ai="continue">续写</div>
+      <div class="it" data-ai="en">翻译为英文</div>
+      <div class="it" data-ai="zh">翻译为中文</div>
+      <div class="it" data-ai="ja">翻译为日文</div>
+      <div class="sep"></div><div class="grp">对整篇文档</div>
+      <div class="it" data-ai="summary">总结要点</div>
+      <div class="it" data-ai="minutes">整理为会议纪要 + 行动项</div>
+      <div class="it" data-ai="email">起草邮件（Outlook）</div>
+      <div class="it" data-ai="slides">生成幻灯片大纲（--- 分页）</div>
+      <div class="sep"></div>
+      <div class="it" data-act="aiprefs">AI 服务设置…</div>
+      <div class="it" data-act="mcp">MCP 接入（Copilot / Claude / Cursor）…</div>
+    </div></div>
+    <div class="menu"><button>主题</button><div class="dropdown">
+      <div class="it" data-theme-pick="github">GitHub</div>
+      <div class="it" data-theme-pick="newsprint">Newsprint</div>
+      <div class="it" data-theme-pick="whitey">Whitey</div>
+      <div class="it" data-theme-pick="night">Night</div>
+      <div class="it" data-theme-pick="dracula">Dracula</div>
+      <div id="theme-user"></div>
+      <div class="sep"></div>
+      <div class="it" data-act="importtheme">导入主题 CSS…</div>
+    </div></div>
+    <div class="menu"><button>帮助</button><div class="dropdown">
+      <div class="it" data-act="help">快捷键与操作<kbd>F1</kbd></div>
+      <div class="it" data-act="sample">打开示例文档</div>
+      <div class="it" data-act="about">关于 MDView</div>
+    </div></div>
+    <div id="title"></div>
+    <button class="tb" data-act="side" title="侧边栏 (Ctrl+Shift+L)"><svg class="i"><use href="#i-side"/></svg></button>
+    <div class="seg"><button class="tb on" data-act="live" data-mode="live" title="实时预览">预览</button><button class="tb" data-act="source" data-mode="source" title="源代码 (Ctrl+/)">源码</button><button class="tb" data-act="split" data-mode="split" title="分屏 (Ctrl+Alt+/)">分屏</button></div>
+    <button class="tb" id="btn-focus" data-act="focus" title="专注模式 (F8)"><svg class="i"><use href="#i-focus"/></svg></button>
+    <button class="tb" id="btn-tw" data-act="tw" title="打字机模式 (F9)"><svg class="i"><use href="#i-type"/></svg></button>
+    <button class="tb" data-act="present" title="演示幻灯片 (F5)"><svg class="i"><use href="#i-play"/></svg></button>
+    <span class="tsep"></span>
+    <button class="tb" id="btn-ai" data-act="ai" title="AI 助手 (Ctrl+J)"><svg class="i"><use href="#i-ai"/></svg>AI</button>
+    <button class="tb" data-act="save" title="保存 (Ctrl+S)"><svg class="i"><use href="#i-save"/></svg></button>
+  </div>
+  <div id="tabbar"></div>
+  <div id="main">
+    <aside id="sidebar">
+      <div id="side-tabs"><button data-tab="files">文件</button><button data-tab="outline" class="active">大纲</button><button data-tab="links">链接</button><button data-tab="tasks">待办</button><button data-tab="search">搜索</button></div>
+      <div class="side-pane" id="pane-files">
+        <div class="side-head"><input id="side-filter" placeholder="筛选文件名…"><button class="icon-btn" data-act="quick" title="快速打开 (Ctrl+P)"><svg class="i"><use href="#i-search"/></svg></button><button class="icon-btn" data-act="reload" title="刷新"><svg class="i"><use href="#i-refresh"/></svg></button><button class="icon-btn" data-act="folder" title="打开文件夹"><svg class="i"><use href="#i-folder"/></svg></button></div>
+        <div id="tree"></div>
+      </div>
+      <div class="side-pane active" id="pane-outline"></div>
+      <div class="side-pane" id="pane-links"></div>
+      <div class="side-pane" id="pane-tasks">
+        <div class="side-head"><input id="tk-filter" placeholder="筛选待办…"><label class="icon-btn" title="显示已完成" style="width:auto;padding:0 6px;font-size:11.5px;gap:3px"><input type="checkbox" id="tk-done">已完成</label><button class="icon-btn" id="tk-refresh" title="刷新"><svg class="i"><use href="#i-refresh"/></svg></button></div>
+        <div id="tk-list"></div>
+      </div>
+      <div class="side-pane" id="pane-search">
+        <div class="side-head"><input id="gs-q" placeholder="在文件夹中搜索（回车）"><label class="icon-btn" title="正则表达式" style="width:auto;padding:0 6px;font-size:11.5px;gap:3px"><input type="checkbox" id="gs-re">.*</label></div>
+        <div id="gs-res"></div>
+      </div>
+    </aside>
+    <div id="side-resizer"></div>
+    <div id="workspace">
+      <div id="write-scroll"><div id="write" class="md"></div></div>
+      <div id="source-wrap"></div>
+      <div id="preview-scroll"><div id="preview" class="md"></div></div>
+      <div id="find">
+        <div class="row"><input type="text" id="find-q" placeholder="查找"><span class="cnt" id="find-cnt"></span><button id="find-prev" title="上一个 (Shift+Enter)">↑</button><button id="find-next" title="下一个 (Enter)">↓</button><button id="find-close" title="关闭 (Esc)">✕</button></div>
+        <div class="row" id="find-rep-row"><input type="text" id="find-r" placeholder="替换为"><button id="find-rep">替换</button><button id="find-repall">全部替换</button></div>
+        <div class="row"><label><input type="checkbox" id="find-case">区分大小写</label><label><input type="checkbox" id="find-re">正则</label></div>
+      </div>
+    </div>
+    <aside id="ai-panel">
+      <div class="ai-head"><svg class="i" style="color:var(--accent)"><use href="#i-ai"/></svg>AI 助手<span class="model" id="ai-model"></span><span class="sp"></span><button class="icon-btn" id="ai-clear" title="清空对话"><svg class="i"><use href="#i-trash"/></svg></button><button class="icon-btn" data-act="aiprefs" title="AI 服务设置"><svg class="i"><use href="#i-gear"/></svg></button><button class="icon-btn" data-act="ai" title="关闭 (Ctrl+J)"><svg class="i"><use href="#i-x"/></svg></button></div>
+      <div class="ai-chips" id="ai-chips"></div>
+      <div id="ai-msgs"></div>
+      <div class="ai-input">
+        <div class="ai-ctx">上下文 <select id="ai-ctx"><option value="auto">自动（选区 → 当前段落）</option><option value="doc">整篇文档</option><option value="none">不附带</option></select><span id="ai-ctxinfo"></span></div>
+        <textarea id="ai-q" placeholder="向 AI 提问，或描述要做的修改…（Enter 发送，Shift+Enter 换行）"></textarea>
+        <div class="row"><span id="ai-note">内容会发送到你配置的 AI 服务</span><button class="btn primary sm" id="ai-send"><svg class="i"><use href="#i-send"/></svg>发送</button></div>
+      </div>
+    </aside>
+  </div>
+  <div id="statusbar">
+    <span id="st-mode" class="clk" title="切换模式 (Ctrl+/)"></span><span id="st-pos"></span><span class="sp"></span>
+    <span id="st-goal" style="display:none"></span><span id="st-engine" title="编辑内核"></span><span id="st-libs"></span><span id="st-enc" class="clk" title="文件编码（单击转换为 UTF-8）"></span><span id="st-words"></span><span id="st-chars"></span><span id="st-lines"></span><span id="st-read"></span>
+  </div>
+</div>
+<div id="fmt-bar"><button data-f="b" title="粗体 Ctrl+B"><b>B</b></button><button data-f="i" title="斜体 Ctrl+I"><i>I</i></button><button data-f="u" title="下划线 Ctrl+U"><u>U</u></button><button data-f="s" title="删除线"><s>S</s></button><button data-f="h" title="高亮"><span style="background:var(--mark);padding:0 3px;border-radius:2px">H</span></button><button data-f="c" title="行内代码 Ctrl+E" style="font-family:var(--mono);font-size:12px">&lt;/&gt;</button><button data-f="k" title="链接 Ctrl+K">链接</button><button data-f="h2" title="设为二级标题">H2</button><button data-f="q" title="引用">❝</button><span class="sep"></span><button data-f="ai" class="ai-btn" title="AI 处理选中文字"><svg class="i"><use href="#i-ai"/></svg>AI</button></div>
+<div id="ac"></div>
+<button id="zoom-btn" title="全屏查看"><svg class="i"><use href="#i-zoom"/></svg></button>
+<div id="lightbox"><div class="lb-stage"></div><button class="lb-close">×</button><div class="lb-tip">滚轮缩放 · 拖动平移 · 双击复位 · Esc 关闭</div></div>
+<div id="slides"><div class="stage"><div class="slide md"></div><div class="num"></div></div><div class="hint">← → 翻页 · Esc 退出</div></div>
+<div id="qo"><input placeholder=""><div id="qo-list"></div></div>
+<div id="ctx"></div>
+<input type="file" id="file-input" accept=".md,.markdown,.mdown,.txt" multiple hidden>
+<input type="file" id="theme-input" accept=".css" hidden>
+<div id="toast"></div>
+<div id="drop-mask">松开以打开文件 / 文件夹 / 插入图片</div>
+<div class="modal-bg" id="modal"><div class="modal" id="modal-body"></div></div>
+<script>/*PRISM*/</script>
+<script>window.__SAMPLE__ = /*SAMPLE*/;window.__CM_META = /*CMMETA*/;</script>
+<script id="cm-chunks" type="application/json">/*CMCHUNKS*/</script>
+<script>/*PARSER*/</script>
+<script>/*APP*/</script>
+</body>
+</html>
