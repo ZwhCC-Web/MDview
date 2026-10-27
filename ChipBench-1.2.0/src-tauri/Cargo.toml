@@ -1,0 +1,36 @@
+[package]
+name = "chipbench"
+version = "1.2.0"
+description = "ChipBench — the AE workbench for chip application engineers"
+authors = ["Wenhao Zhao"]
+edition = "2021"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-dialog = "2"
+tauri-plugin-opener = "2"
+tauri-plugin-single-instance = "2"
+tauri-plugin-window-state = "2"
+tauri-plugin-http = "2"
+tauri-plugin-global-shortcut = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+base64 = "0.22"
+notify = "6"
+chardetng = "0.1"
+encoding_rs = "0.8"
+regex = "1"
+walkdir = "2"
+pdf-extract = "0.7"
+# 1.1: AI API key in Windows Credential Manager (not in the plain kv store)
+keyring = { version = "3", features = ["windows-native"] }
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = "s"
+panic = "abort"
+strip = true

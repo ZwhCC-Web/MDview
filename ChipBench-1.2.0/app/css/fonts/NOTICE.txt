@@ -1,0 +1,6 @@
+Fonts bundled with ChipBench (SIL Open Font License 1.1 — free to use, embed and redistribute):
+
+  SourceSans-*.woff2   Source Sans Pro, Copyright 2010-2018 Adobe Systems Incorporated.   (subset: Latin / punctuation / math symbols)
+  NotoSansSC-*.woff2   Noto Sans CJK SC (Source Han Sans), Copyright 2014-2021 Adobe / Google. (1.1 subset: GB2312 level 1, kana, CJK punctuation, full-width forms)
+
+The subsets were produced with fontTools; glyph outlines are unchanged. Full licence text: OFL-SourceSans.txt (same licence applies to Noto Sans CJK).

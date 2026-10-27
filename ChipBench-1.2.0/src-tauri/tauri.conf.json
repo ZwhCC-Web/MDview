@@ -1,0 +1,83 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "ChipBench",
+  "version": "1.2.0",
+  "identifier": "com.chipbench.aeworkbench",
+  "build": {
+    "frontendDist": "../app"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "windows": [
+      {
+        "label": "main",
+        "title": "ChipBench",
+        "width": 1440,
+        "height": 920,
+        "minWidth": 900,
+        "minHeight": 560,
+        "center": true,
+        "dragDropEnabled": true
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": [
+      "nsis",
+      "msi"
+    ],
+    "publisher": "Wenhao Zhao",
+    "shortDescription": "ChipBench — the AE workbench for chip application engineers",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "resources": {
+      "../mcp/chipbench_mcp.py": "mcp/chipbench_mcp.py",
+      "../mcp/README.md": "mcp/README.md",
+      "../skills/": "skills/"
+    },
+    "fileAssociations": [
+      {
+        "ext": [
+          "md",
+          "markdown",
+          "mdown",
+          "mkd"
+        ],
+        "name": "Markdown",
+        "description": "Markdown Document",
+        "role": "Editor"
+      },
+      {
+        "ext": [
+          "cbws",
+          "silicaws"
+        ],
+        "name": "ChipBench Workspace",
+        "description": "ChipBench Workspace",
+        "role": "Editor"
+      }
+    ],
+    "windows": {
+      "webviewInstallMode": {
+        "type": "downloadBootstrapper"
+      },
+      "nsis": {
+        "installMode": "currentUser"
+      },
+      "certificateThumbprint": null,
+      "digestAlgorithm": "sha256",
+      "timestampUrl": "http://timestamp.digicert.com"
+    },
+    "copyright": "© 2026 Wenhao Zhao",
+    "category": "DeveloperTool"
+  }
+}
