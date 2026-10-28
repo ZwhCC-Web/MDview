@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device schemaVersion="1.3"><name>DEMO_MCU</name><cpu><name>CM33</name></cpu>
+<peripherals>
+<peripheral><name>CAN0</name><groupName>CAN</groupName><baseAddress>0x40050000</baseAddress><interrupt><name>CAN0_IRQ</name><value>30</value></interrupt></peripheral>
+<peripheral derivedFrom="CAN0"><name>CAN1</name><baseAddress>0x40051000</baseAddress><interrupt><name>CAN1_IRQ</name><value>31</value></interrupt></peripheral>
+<peripheral><name>UART0</name><groupName>SCI</groupName><baseAddress>0x40070000</baseAddress></peripheral>
+<peripheral><name>GPT0</name><groupName>TIMER</groupName><baseAddress>0x40080000</baseAddress><interrupt><name>GPT0_OVF</name><value>40</value></interrupt><interrupt><name>GPT0_CMP</name><value>41</value></interrupt></peripheral>
+</peripherals></device>
