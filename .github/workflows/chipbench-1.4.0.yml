@@ -1,0 +1,55 @@
+name: Build ChipBench 1.4.0 Desktop
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'ChipBench-1.4.0/**'
+      - '.github/workflows/chipbench-1.4.0.yml'
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ChipBench-1.4.0
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: python tools/embed-docs.py
+      - run: node tests/logic.test.js && node tests/md.test.js && node tests/net.test.js
+      - run: python mcp/test_mcp.py && python mcp/test_aenet.py && python tools/sync-skills.py --check
+      - run: pip install playwright && python -m playwright install --with-deps chromium
+      - name: End-to-end tests (mock desktop)
+        run: |
+          for t in t_boot t_editor t_features t_tools t_viewers t_ws t_misc t_modules t_net t_v12 t_v13 t_v14; do python tests/$t.py || exit 1; done
+      - name: Performance budget
+        run: python tests/t_perf.py && python scripts/check_perf.py
+  windows:
+    needs: test
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: ChipBench-1.4.0
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: swatinem/rust-cache@v2
+        with: { workspaces: ChipBench-1.4.0/src-tauri }
+      - run: python tools/embed-docs.py
+      - run: npm install
+      - run: npx tauri icon app-icon.png
+      - run: npx tauri build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ChipBench-1.4.0-Windows
+          path: |
+            ChipBench-1.4.0/src-tauri/target/release/bundle/nsis/*.exe
+            ChipBench-1.4.0/src-tauri/target/release/bundle/msi/*.msi
+            ChipBench-1.4.0/src-tauri/target/release/chipbench.exe

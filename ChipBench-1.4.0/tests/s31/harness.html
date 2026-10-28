@@ -1,0 +1,23 @@
+<!doctype html><meta charset="utf-8"><title>s31 harness (test only)</title>
+<link rel="stylesheet" href="../../app/css/chipbench.css">
+<style>body{margin:0;background:#e9ebef;font:13px sans-serif}#out{display:flex;flex-direction:column;gap:20px;padding:20px;align-items:center}#root{height:100vh}</style>
+<div id="out"></div><div id="root" style="display:none"></div>
+<script>
+const store={}; window.__opened=[]; window.__store=store;
+const h=(tag,a,html)=>{const e=document.createElement(tag);for(const k in a||{})e.setAttribute(k,a[k]);if(html!=null)e.innerHTML=html;return e};
+window.ChipBench={U:{h,dir:p=>p.replace(/\/[^/]*$/,''),pkey:p=>p.toLowerCase()},
+ X:{resolveRel:(d,r)=>{const o=d.split('/');for(const s of r.split('/')){if(s==='..')o.pop();else if(s&&s!=='.')o.push(s)}return o.join('/')},hash:s=>String(s.length)},
+ fs:{read:async p=>({text:await (await fetch(p)).text()}),readBytes:async p=>{const r=await fetch(p);if(!r.ok)throw new Error('404 '+p);return new Uint8Array(await r.arrayBuffer())}},
+ store:{get:async(k,d)=>store[k]===undefined?d:store[k],set:async(k,v)=>{store[k]=v}},
+ openExternal:u=>window.__opened.push(u), invoke:async(c,a)=>{window.__opened.push(c+':'+JSON.stringify(a))}, toast:()=>{}};
+</script>
+<script src="../../app/js/viewer-pptx.js"></script><script src="../../app/js/viewer-html.js"></script>
+<script>
+window.renderAll=async function(url,width){
+  const b=new Uint8Array(await (await fetch(url)).arrayBuffer()); const t0=performance.now(); const M=await ChipBench.s31.pptx.parse(b); const tParse=performance.now()-t0;
+  const out=document.getElementById('out'); out.innerHTML=''; const times=[];
+  for(let i=0;i<M.N;i++){const t1=performance.now(); const res=await ChipBench.s31.pptx.renderSlide(M,i);
+    const box=document.createElement('div'); box.className='pp-slide'; box.style.width=width+'px'; box.style.height=(width*M.H/M.W)+'px'; box.appendChild(res.el); res.el.style.transform='scale('+(width/M.w)+')'; out.appendChild(box); times.push(+(performance.now()-t1).toFixed(1));}
+  await new Promise(r=>setTimeout(r,300)); return {N:M.N,tParse:+tParse.toFixed(1),times};
+};
+</script>
