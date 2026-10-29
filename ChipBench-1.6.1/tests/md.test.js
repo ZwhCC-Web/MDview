@@ -1,0 +1,16 @@
+const M = require('../app/js/md.js'); let ok = 0, bad = 0; const t = (n, c, x) => { if (c) ok++; else { bad++; console.log('FAIL', n, x !== undefined ? String(x).slice(0, 300) : ''); } };
+const h = s => M.render(s).blocks.map(b => b.html).join('\n');
+t('heading+emph', /<h1 id="标题">标题<\/h1>/.test(h('# 标题')) && h('**b** *i* ~~d~~ ==m== `c`').includes('<strong>b</strong>') && h('==m==').includes('<mark>m</mark>'));
+t('list+task', h('- [ ] a 📅 2026-10-22 ~30m\n- [x] b').includes('task-cb') && h('- [ ] a 📅 2026-10-22').includes('data-due="2026-10-22"') && h('1. a\n2. b').includes('<ol>'));
+t('table', h('| a | b |\n| :-: | --: |\n| 1 | 2 |').includes('text-align:center') && h('| a |\n| - |\n| x |').includes('<td>x</td>'));
+t('code/widget', h('```c\nint x;\n```').includes('language-c') && h('```mermaid\ngraph LR\n```').includes('data-w="mermaid"') && h('```clocktree\nnodes: []\n```').includes('class="widget"'));
+t('math', h('$$\nx^2\n$$').includes('math-block') && h('a $x$ b').includes('class="math"'));
+t('wiki/image', h('[[笔记|别名]] ![a](assets/x.png) ![b](https://x/y.png)').includes('data-wiki="笔记"') && h('![a](assets/x.png)').includes('img-pending') && !h('![b](https://x/y.png)').includes('img-pending'));
+t('callout', h('> [!WARNING]\n> 小心').includes('alert-warning'));
+t('footnote/toc', M.render('正文[^1]\n\n[^1]: 脚注\n\n[TOC]\n\n# A\n## B').footnotes.includes('脚注') && h('[TOC]\n\n# A').includes('toc-l1'));
+t('front matter', M.render('---\ntitle: A\nstatus: 完成\n---\n# x').blocks[0].html.includes('fm-k') && M.render('---\na: 1\n---\n').hasFront);
+t('safe html', !h('<script>alert(1)</script>\n\n<div onclick="x()">a</div>').includes('onclick') && !h('<script>alert(1)</script>').includes('<script'));
+t('cache', (M.render('# x\n\npara'), M.stats.hits > 0 || (M.render('# x\n\npara'), M.stats.hits > 0)));
+const big = Array.from({ length: 5000 }, (_, i) => '## 标题 ' + i + '\n\n段落 **' + i + '** 与 [[link]]\n\n- a\n- b\n').join('\n'); const t0 = Date.now(); const r = M.render(big); const t1 = Date.now(); M.render(big); const t2 = Date.now();
+t('perf 20k lines', r.lines > 20000 && t1 - t0 < 4000, [r.lines, t1 - t0, t2 - t1]); console.log('render 20k lines: first', t1 - t0, 'ms, cached', t2 - t1, 'ms');
+console.log(ok + ' passed, ' + bad + ' failed'); process.exit(bad ? 1 : 0);

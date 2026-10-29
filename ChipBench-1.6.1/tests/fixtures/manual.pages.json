@@ -1,0 +1,1 @@
+{"1": "Clock Generator overview. Main OSC 20 MHz crystal.", "2": "PLL0 output max 480 MHz. CPU clock max 240 MHz.", "3": "CAN FD controller. Message RAM and receive filter.", "4": "Register DBTP data bit timing.", "5": "Ethernet MAC and DMA.", "6": "Appendix glossary DFA Dedicated Accelerator"}

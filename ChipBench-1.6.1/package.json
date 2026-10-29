@@ -1,0 +1,13 @@
+{
+  "name": "chipbench",
+  "version": "1.6.1",
+  "private": true,
+  "description": "ChipBench — the AE workbench for chip application engineers",
+  "scripts": {
+    "icon": "tauri icon app-icon.png",
+    "dev": "tauri dev",
+    "build": "tauri build",
+    "test": "node tests/logic.test.js && node tests/md.test.js && node tests/net.test.js && python mcp/test_mcp.py && python mcp/test_aenet.py && python tools/sync-skills.py --check"
+  },
+  "devDependencies": { "@tauri-apps/cli": "^2" }
+}

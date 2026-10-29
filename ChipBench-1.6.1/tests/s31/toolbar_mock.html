@@ -1,0 +1,23 @@
+<!doctype html><meta charset="utf-8"><title>toolbar mock (test only)</title>
+<link rel="stylesheet" href="../../app/css/chipbench.css">
+<style>:root{--n0:#fff;--n1:#fbfbfc;--n2:#f5f6f8;--n3:#eef0f3;--n4:#e5e8ec;--n5:#d9dde3;--t1:#1a1d21;--t2:#424851;--t3:#6a727e;--t4:#98a0ab;--brand:#3b66f0;--brand-w:rgba(59,102,240,.09);--brand-w2:rgba(59,102,240,.16);--hover:rgba(15,23,42,.05);--fast:110ms;--ease:ease;--e4:0 20px 40px rgba(0,0,0,.2);--ui:"Segoe UI",sans-serif;--mono:monospace}body{margin:0;font:13px var(--ui)}@keyframes pop{from{opacity:0}to{opacity:1}}</style>
+<div id="crumbs" style="height:30px;border-bottom:1px solid #ddd">crumbs</div><div id="ed-host"></div>
+<script>
+const SL=window.ChipBench={on(e,f){(this.h[e]=this.h[e]||[]).push(f)},emit(e,...a){(this.h[e]||[]).forEach(f=>f(...a))},h:{},E:{tools:{}},app:{},run(id){window.__ran=id},panel(id){window.__panel=id}};
+const T=SL.E.tools;
+/* helper functions copied from ChipBench edit-tools.js as quoted in the project history */
+T.wrap=(e,a,b)=>{const s=e.from,z=e.to,sel=e.slice(s,z);if(sel.startsWith(a)&&sel.endsWith(b)&&sel.length>=a.length+b.length){const inner=sel.slice(a.length,sel.length-b.length);e.replace(s,z,inner,s,s+inner.length)}else if(e.slice(s-a.length,s)===a&&e.slice(z,z+b.length)===b)e.replace(s-a.length,z+b.length,sel,s-a.length,z-a.length);else e.replace(s,z,a+sel+b,s+a.length,s+a.length+sel.length);return true};
+T.linePrefix=(e,pre)=>{const l=e.lineAt(e.head),line=l.text.replace(/^#{1,6}\s+/,'').replace(/^>\s?/,'');e.replace(l.from,l.to,pre+line,l.from+pre.length+line.length);return true};
+T.link=e=>{const s=e.from,z=e.to,sel=e.slice(s,z),u=/^https?:/.test(sel)?sel:'';e.replace(s,z,'['+(u?'':sel)+']('+u+')',u?s+1:s+sel.length+3);return true};
+T.insertAt=(e,text,back)=>{e.insert(text);if(back){const p=e.head-back;e.select(p)}return true};
+T.SNIP={mermaid:'```mermaid\ngraph LR\n  A-->B\n```'};
+class Ed{constructor(){this.doc='';this.anchor=0;this.hd=0;this.hist=[];this.cm={undo:()=>{window.__undo=(window.__undo||0)+1},redo:()=>{window.__redo=(window.__redo||0)+1}};this.view={}}
+ set(d,a,b){this.doc=d;this.anchor=a;this.hd=b==null?a:b}get from(){return Math.min(this.anchor,this.hd)}get to(){return Math.max(this.anchor,this.hd)}get head(){return this.hd}
+ slice(a,b){return this.doc.slice(Math.max(0,a),b==null?undefined:b)}replace(a,b,t,sa,sb){this.doc=this.doc.slice(0,a)+t+this.doc.slice(b);if(sa!=null){this.anchor=sa;this.hd=sb==null?sa:sb}else{this.anchor=this.hd=a+t.length}}
+ insert(t){this.replace(this.from,this.to,t)}select(a,b){this.anchor=a;this.hd=b==null?a:b}
+ lineAt(pos){const L=this.doc.split('\n');let o=0;for(let n=0;n<L.length;n++){const to=o+L[n].length;if(pos<=to)return{from:o,to,text:L[n],n};o=to+1}const n=L.length-1;return{from:o-L[n].length-1,to:o-1,text:L[n],n}}
+ line(n){const L=this.doc.split('\n');n=Math.max(0,Math.min(L.length-1,n));let o=0;for(let i=0;i<n;i++)o+=L[i].length+1;return{from:o,to:o+L[n].length,text:L[n],n}}
+ focus(){}
+ treeNodeAt(pos){const names=[],l=this.lineAt(pos),rel=pos-l.from,t=l.text;const ins=(re,nm)=>{let m;const r=new RegExp(re,'g');while((m=r.exec(t))){if(rel>=m.index&&rel<=m.index+m[0].length)names.push(nm)}};ins('\\*\\*[^*]+\\*\\*','StrongEmphasis');ins('`[^`]+`','InlineCode');if(/^\s*>/.test(t))names.push('Blockquote');let node=null;for(const n of names.reverse())node={name:n,parent:node};return node}}
+window.ed=new Ed();const A=SL.app;A.tabs=[{kind:'md'},{kind:'view'}];A.cur=0;A.ed=ed;A.mode='live';A.current=()=>A.tabs[A.cur];A.openFind=()=>{window.__find=1};
+</script><script src="../../app/js/format-toolbar.js"></script>
