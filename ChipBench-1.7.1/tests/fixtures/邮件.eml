@@ -1,0 +1,29 @@
+Content-Type: multipart/mixed; boundary="===============0126444893138871783=="
+MIME-Version: 1.0
+Subject: =?utf-8?b?5qC35ZOB5a+E6YCB56Gu6K6k?=
+From: Wendy <wendy@example.com>
+To: me@example.com
+Date: Tue, 20 Oct 2026 09:00:00 +0800
+
+--===============0126444893138871783==
+Content-Type: multipart/alternative;
+ boundary="===============5799515921274342215=="
+MIME-Version: 1.0
+
+--===============5799515921274342215==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+
+5oKo5aW977yM5qC35ZOB5bey5a+E5Ye644CC
+
+--===============5799515921274342215==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+
+PHA+5oKo5aW977yMPGI+5qC35ZOB5bey5a+E5Ye6PC9iPuOAgjwvcD4=
+
+--===============5799515921274342215==--
+
+--===============0126444893138871783==--

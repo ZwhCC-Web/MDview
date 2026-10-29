@@ -1,0 +1,9 @@
+node_modules/
+src-tauri/target/
+src-tauri/gen/
+src-tauri/icons/
+tests/__pycache__/
+tests/*.png
+tests/out/
+tests/perf_results.json
+/s_*.png
