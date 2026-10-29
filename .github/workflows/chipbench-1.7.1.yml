@@ -9,6 +9,8 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      PYTHONUTF8: '1'
     defaults:
       run:
         working-directory: ChipBench-1.7.1
@@ -30,6 +32,8 @@ jobs:
   windows:
     needs: test
     runs-on: windows-latest
+    env:
+      PYTHONUTF8: '1'
     defaults:
       run:
         working-directory: ChipBench-1.7.1

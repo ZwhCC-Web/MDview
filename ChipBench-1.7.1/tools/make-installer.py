@@ -4,7 +4,9 @@
   --collect   构建后整理：把 NSIS 安装包、MSI、便携 exe 收进 dist/ChipBench-<版本>/，生成 SHA256SUMS.txt、INSTALL.txt、RELEASE-NOTES.md
   --collect --bundle <目录>   指定 bundle 位置（测试用）
 build-installer.bat 依次调用：--check → cargo test → tauri build → --collect。退出码非 0 = 有问题。"""
-import hashlib, json, pathlib, re, shutil, subprocess, sys
+import hashlib, json, os, pathlib, re, shutil, subprocess, sys
+try: sys.stdout.reconfigure(encoding='utf-8', errors='replace'); sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+except Exception: pass
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 errs, warns, oks = [], [], []
 read = lambda p: (ROOT / p).read_text('utf-8') if (ROOT / p).exists() else ''
@@ -36,7 +38,8 @@ def check():
     (oks if (ROOT / 'app-icon.png').exists() else errs).append('图标源 app-icon.png ' + ('存在' if (ROOT / 'app-icon.png').exists() else '缺失'))
     for tool, label in (('tools/check-rust.py', 'Rust 命令注册（静态）'), ('tools/check-modules.py', '前端模块清单')):
         if (ROOT / tool).exists():
-            r = subprocess.run([sys.executable, str(ROOT / tool)], capture_output=True, text=True)
+            r = subprocess.run([sys.executable, str(ROOT / tool)], capture_output=True, encoding='utf-8', errors='replace',
+                               env={**os.environ, 'PYTHONUTF8': '1', 'PYTHONIOENCODING': 'utf-8'})
             (oks if r.returncode == 0 else errs).append('%s：%s' % (label, (r.stdout.strip().splitlines() or [''])[-1] if r.returncode == 0 else (r.stdout + r.stderr).strip()[-300:]))
     for exe in ('cargo', 'node', 'npm', 'python'): (oks if shutil.which(exe) else warns).append(('工具链：%s 可用' if shutil.which(exe) else '工具链：未找到 %s（Windows 构建机上需要）') % exe)
 newest = lambda d, pat: next(iter(sorted(d.glob(pat), key=lambda p: p.stat().st_mtime, reverse=True)), None) if d.exists() else None
