@@ -7,13 +7,13 @@ where node  >nul 2>nul || (echo [X] Node.js 18+ not found: https://nodejs.org & 
 where python >nul 2>nul || (echo [X] Python 3.8+ not found: https://python.org & goto :fail)
 echo [1/5] Pre-build checks
 python tools\make-installer.py --check || goto :fail
-echo [2/5] Rust unit tests (first real compile of the Rust shell)
+echo [2/5] npm install + icon set (must precede cargo test: tauri-build needs src-tauri\icons\icon.ico)
+call npm install || goto :fail
+call npx tauri icon app-icon.png || goto :fail
+echo [3/5] Rust unit tests (first real compile of the Rust shell)
 pushd src-tauri
 cargo test || (popd & goto :fail)
 popd
-echo [3/5] npm install + icon set
-call npm install || goto :fail
-call npx tauri icon app-icon.png || goto :fail
 echo [4/5] tauri build
 if defined CHIPBENCH_CERT_THUMBPRINT (
   call npx tauri build --config "{\"bundle\":{\"windows\":{\"certificateThumbprint\":\"%CHIPBENCH_CERT_THUMBPRINT%\"}}}" || goto :fail

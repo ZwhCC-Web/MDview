@@ -38,9 +38,9 @@ jobs:
       - uses: swatinem/rust-cache@v2
         with: { workspaces: src-tauri }
       - run: python tools/make-installer.py --check
-      - run: cargo test --manifest-path src-tauri/Cargo.toml
       - run: npm install
       - run: npx tauri icon app-icon.png
+      - run: cargo test --manifest-path src-tauri/Cargo.toml
       - run: npx tauri build
       - run: python tools/make-installer.py --collect
       - uses: actions/upload-artifact@v4
