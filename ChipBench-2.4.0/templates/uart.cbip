@@ -1,0 +1,235 @@
+{
+  "schema": "chipbench.ip/1",
+  "id": "tpl-uart",
+  "name": "通用 串口（UART / SPI / I2C 类）",
+  "kind": "template",
+  "rev": 2,
+  "chip": "",
+  "family": "",
+  "extends": "",
+  "source": "",
+  "docrev": "",
+  "description": "通用结构模板，只描述结构；寄存器、地址、时序数值请对照具体芯片手册补充。",
+  "refs": [],
+  "nodes": [
+    {
+      "id": "top",
+      "type": "periph",
+      "kind": "periph",
+      "name": "通用 串口（UART / SPI / I2C 类）",
+      "params": {},
+      "ports": [
+        {
+          "id": "bus",
+          "type": "bus",
+          "dir": "in"
+        },
+        {
+          "id": "clk",
+          "type": "clock",
+          "dir": "in"
+        },
+        {
+          "id": "rst",
+          "type": "reset",
+          "dir": "in"
+        },
+        {
+          "id": "irq",
+          "type": "irq",
+          "dir": "out"
+        },
+        {
+          "id": "txd",
+          "type": "io",
+          "dir": "out"
+        },
+        {
+          "id": "rxd",
+          "type": "io",
+          "dir": "in"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "regif",
+      "type": "logic",
+      "kind": "logic",
+      "name": "寄存器接口",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "o",
+          "type": "ctrl",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "baud",
+      "type": "clock",
+      "kind": "clock",
+      "name": "波特率 / 时钟发生",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "c",
+          "type": "ctrl",
+          "dir": "in"
+        },
+        {
+          "id": "o",
+          "type": "clock",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "txsr",
+      "type": "logic",
+      "kind": "logic",
+      "name": "发送移位",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "clk",
+          "type": "clock",
+          "dir": "in"
+        },
+        {
+          "id": "d",
+          "type": "data",
+          "dir": "in"
+        },
+        {
+          "id": "o",
+          "type": "io",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "rxsr",
+      "type": "logic",
+      "kind": "logic",
+      "name": "接收移位",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "clk",
+          "type": "clock",
+          "dir": "in"
+        },
+        {
+          "id": "i",
+          "type": "io",
+          "dir": "in"
+        },
+        {
+          "id": "o",
+          "type": "data",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "fifo",
+      "type": "mem",
+      "kind": "mem",
+      "name": "FIFO",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "tx",
+          "type": "data",
+          "dir": "out"
+        },
+        {
+          "id": "rx",
+          "type": "data",
+          "dir": "in"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "x1",
+      "source": "regif.o",
+      "target": "baud.c",
+      "type": "ctrl",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x2",
+      "source": "baud.o",
+      "target": "txsr.clk",
+      "type": "clock",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x3",
+      "source": "baud.o",
+      "target": "rxsr.clk",
+      "type": "clock",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x4",
+      "source": "fifo.tx",
+      "target": "txsr.d",
+      "type": "data",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x5",
+      "source": "rxsr.o",
+      "target": "fifo.rx",
+      "type": "data",
+      "ev": {
+        "level": "示意"
+      }
+    }
+  ],
+  "registers": {},
+  "scenes": [],
+  "rules": [],
+  "timings": []
+}

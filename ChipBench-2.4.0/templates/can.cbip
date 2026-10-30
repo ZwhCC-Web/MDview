@@ -1,0 +1,282 @@
+{
+  "schema": "chipbench.ip/1",
+  "id": "tpl-can",
+  "name": "通用 CAN / CAN-FD 控制器",
+  "kind": "template",
+  "rev": 2,
+  "chip": "",
+  "family": "",
+  "extends": "",
+  "source": "",
+  "docrev": "",
+  "description": "通用结构模板，只描述结构；寄存器、地址、时序数值请对照具体芯片手册补充。",
+  "refs": [],
+  "nodes": [
+    {
+      "id": "top",
+      "type": "periph",
+      "kind": "periph",
+      "name": "通用 CAN / CAN-FD 控制器",
+      "params": {},
+      "ports": [
+        {
+          "id": "bus",
+          "type": "bus",
+          "dir": "in"
+        },
+        {
+          "id": "clk",
+          "type": "clock",
+          "dir": "in"
+        },
+        {
+          "id": "rst",
+          "type": "reset",
+          "dir": "in"
+        },
+        {
+          "id": "irq",
+          "type": "irq",
+          "dir": "out"
+        },
+        {
+          "id": "txd",
+          "type": "io",
+          "dir": "out"
+        },
+        {
+          "id": "rxd",
+          "type": "io",
+          "dir": "in"
+        },
+        {
+          "id": "dma",
+          "type": "dma",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "regif",
+      "type": "logic",
+      "kind": "logic",
+      "name": "寄存器接口",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "o",
+          "type": "ctrl",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "bt",
+      "type": "logic",
+      "kind": "logic",
+      "name": "位定时",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "i",
+          "type": "ctrl",
+          "dir": "in"
+        },
+        {
+          "id": "o",
+          "type": "ctrl",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "txq",
+      "type": "mem",
+      "kind": "mem",
+      "name": "发送缓冲 / 队列",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "o",
+          "type": "data",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "proto",
+      "type": "logic",
+      "kind": "logic",
+      "name": "协议引擎",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "ctl",
+          "type": "ctrl",
+          "dir": "in"
+        },
+        {
+          "id": "tx",
+          "type": "data",
+          "dir": "in"
+        },
+        {
+          "id": "rx",
+          "type": "data",
+          "dir": "out"
+        },
+        {
+          "id": "ir",
+          "type": "irq",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "filt",
+      "type": "logic",
+      "kind": "logic",
+      "name": "接收过滤",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "i",
+          "type": "data",
+          "dir": "in"
+        },
+        {
+          "id": "o",
+          "type": "data",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "rxq",
+      "type": "mem",
+      "kind": "mem",
+      "name": "接收缓冲 / FIFO",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "i",
+          "type": "data",
+          "dir": "in"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "irqgen",
+      "type": "irq",
+      "kind": "irq",
+      "name": "中断生成",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "i",
+          "type": "irq",
+          "dir": "in"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "x1",
+      "source": "regif.o",
+      "target": "bt.i",
+      "type": "ctrl",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x2",
+      "source": "bt.o",
+      "target": "proto.ctl",
+      "type": "ctrl",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x3",
+      "source": "txq.o",
+      "target": "proto.tx",
+      "type": "data",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x4",
+      "source": "proto.rx",
+      "target": "filt.i",
+      "type": "data",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x5",
+      "source": "filt.o",
+      "target": "rxq.i",
+      "type": "data",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x6",
+      "source": "proto.ir",
+      "target": "irqgen.i",
+      "type": "irq",
+      "ev": {
+        "level": "示意"
+      }
+    }
+  ],
+  "registers": {},
+  "scenes": [],
+  "rules": [],
+  "timings": []
+}

@@ -1,0 +1,211 @@
+{
+  "schema": "chipbench.ip/1",
+  "id": "tpl-timer",
+  "name": "通用 定时器 / PWM",
+  "kind": "template",
+  "rev": 2,
+  "chip": "",
+  "family": "",
+  "extends": "",
+  "source": "",
+  "docrev": "",
+  "description": "通用结构模板，只描述结构；寄存器、地址、时序数值请对照具体芯片手册补充。",
+  "refs": [],
+  "nodes": [
+    {
+      "id": "top",
+      "type": "periph",
+      "kind": "periph",
+      "name": "通用 定时器 / PWM",
+      "params": {},
+      "ports": [
+        {
+          "id": "bus",
+          "type": "bus",
+          "dir": "in"
+        },
+        {
+          "id": "clk",
+          "type": "clock",
+          "dir": "in"
+        },
+        {
+          "id": "rst",
+          "type": "reset",
+          "dir": "in"
+        },
+        {
+          "id": "irq",
+          "type": "irq",
+          "dir": "out"
+        },
+        {
+          "id": "pin",
+          "type": "io",
+          "dir": "out"
+        },
+        {
+          "id": "trg",
+          "type": "ctrl",
+          "dir": "in"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "regif",
+      "type": "logic",
+      "kind": "logic",
+      "name": "寄存器接口",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "o",
+          "type": "ctrl",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "pre",
+      "type": "clock",
+      "kind": "clock",
+      "name": "预分频",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "o",
+          "type": "clock",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "cnt",
+      "type": "logic",
+      "kind": "logic",
+      "name": "计数器",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "c",
+          "type": "ctrl",
+          "dir": "in"
+        },
+        {
+          "id": "clk",
+          "type": "clock",
+          "dir": "in"
+        },
+        {
+          "id": "o",
+          "type": "data",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "cmp",
+      "type": "logic",
+      "kind": "logic",
+      "name": "比较 / 捕获",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "i",
+          "type": "data",
+          "dir": "in"
+        },
+        {
+          "id": "o",
+          "type": "ctrl",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "out",
+      "type": "io",
+      "kind": "io",
+      "name": "输出控制",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "i",
+          "type": "ctrl",
+          "dir": "in"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "x1",
+      "source": "regif.o",
+      "target": "cnt.c",
+      "type": "ctrl",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x2",
+      "source": "pre.o",
+      "target": "cnt.clk",
+      "type": "clock",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x3",
+      "source": "cnt.o",
+      "target": "cmp.i",
+      "type": "data",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x4",
+      "source": "cmp.o",
+      "target": "out.i",
+      "type": "ctrl",
+      "ev": {
+        "level": "示意"
+      }
+    }
+  ],
+  "registers": {},
+  "scenes": [],
+  "rules": [],
+  "timings": []
+}

@@ -1,0 +1,503 @@
+{
+  "schema": "chipbench.ip/1",
+  "id": "tpl-gtm",
+  "name": "通用 GTM（通用定时器模块）",
+  "kind": "template",
+  "rev": 2,
+  "chip": "",
+  "family": "",
+  "extends": "",
+  "source": "",
+  "docrev": "",
+  "description": "通用结构模板，只描述结构；寄存器、地址、时序数值请对照具体芯片手册补充。 按 GTM IP 公开的模块划分命名（CMU / TBU / TIM / TOM / ATOM / ARU / MCS / PSM / DPLL / ICM）；某颗芯片实际包含哪些模块、各有多少通道、怎样连接，请对照手册。",
+  "refs": [],
+  "nodes": [
+    {
+      "id": "top",
+      "type": "periph",
+      "kind": "periph",
+      "name": "通用 GTM（通用定时器模块）",
+      "params": {},
+      "ports": [
+        {
+          "id": "bus",
+          "type": "bus",
+          "dir": "in"
+        },
+        {
+          "id": "clk",
+          "type": "clock",
+          "dir": "in"
+        },
+        {
+          "id": "rst",
+          "type": "reset",
+          "dir": "in"
+        },
+        {
+          "id": "irq",
+          "type": "irq",
+          "dir": "out"
+        },
+        {
+          "id": "pins",
+          "type": "io",
+          "dir": "inout"
+        },
+        {
+          "id": "ref",
+          "type": "clock",
+          "dir": "in"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "aei",
+      "type": "logic",
+      "kind": "logic",
+      "name": "总线 / 寄存器接口",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "o",
+          "type": "ctrl",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "cmu",
+      "type": "clock",
+      "kind": "clock",
+      "name": "时钟管理 CMU",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "i",
+          "type": "clock",
+          "dir": "in"
+        },
+        {
+          "id": "o",
+          "type": "clock",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "tbu",
+      "type": "logic",
+      "kind": "logic",
+      "name": "时基单元 TBU",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "clk",
+          "type": "clock",
+          "dir": "in"
+        },
+        {
+          "id": "o",
+          "type": "data",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "tim",
+      "type": "logic",
+      "kind": "logic",
+      "name": "定时输入模块 TIM",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "pin",
+          "type": "data",
+          "dir": "in"
+        },
+        {
+          "id": "tb",
+          "type": "data",
+          "dir": "in"
+        },
+        {
+          "id": "o",
+          "type": "data",
+          "dir": "out"
+        },
+        {
+          "id": "irq",
+          "type": "irq",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "tom",
+      "type": "logic",
+      "kind": "logic",
+      "name": "定时输出模块 TOM",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "tb",
+          "type": "data",
+          "dir": "in"
+        },
+        {
+          "id": "c",
+          "type": "ctrl",
+          "dir": "in"
+        },
+        {
+          "id": "pin",
+          "type": "data",
+          "dir": "out"
+        },
+        {
+          "id": "irq",
+          "type": "irq",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "atom",
+      "type": "logic",
+      "kind": "logic",
+      "name": "ARU 连接输出模块 ATOM",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "tb",
+          "type": "data",
+          "dir": "in"
+        },
+        {
+          "id": "aru",
+          "type": "data",
+          "dir": "in"
+        },
+        {
+          "id": "pin",
+          "type": "data",
+          "dir": "out"
+        },
+        {
+          "id": "aruo",
+          "type": "data",
+          "dir": "out"
+        },
+        {
+          "id": "irq",
+          "type": "irq",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "aru",
+      "type": "logic",
+      "kind": "logic",
+      "name": "高级路由单元 ARU",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "i",
+          "type": "data",
+          "dir": "in"
+        },
+        {
+          "id": "o",
+          "type": "data",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "mcs",
+      "type": "logic",
+      "kind": "logic",
+      "name": "多通道序列器 MCS",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "aru",
+          "type": "data",
+          "dir": "in"
+        },
+        {
+          "id": "out",
+          "type": "data",
+          "dir": "out"
+        },
+        {
+          "id": "mem",
+          "type": "data",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "psm",
+      "type": "mem",
+      "kind": "mem",
+      "name": "参数存储 PSM",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "i",
+          "type": "data",
+          "dir": "in"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "dpll",
+      "type": "logic",
+      "kind": "logic",
+      "name": "数字 PLL DPLL",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "tim",
+          "type": "data",
+          "dir": "in"
+        },
+        {
+          "id": "o",
+          "type": "data",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "icm",
+      "type": "irq",
+      "kind": "irq",
+      "name": "中断集中 ICM",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "i",
+          "type": "irq",
+          "dir": "in"
+        },
+        {
+          "id": "o",
+          "type": "irq",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "x1",
+      "source": "aei.o",
+      "target": "tom.c",
+      "type": "ctrl",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x2",
+      "source": "cmu.o",
+      "target": "tbu.clk",
+      "type": "clock",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x3",
+      "source": "tbu.o",
+      "target": "tim.tb",
+      "type": "data",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x4",
+      "source": "tbu.o",
+      "target": "tom.tb",
+      "type": "data",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x5",
+      "source": "tbu.o",
+      "target": "atom.tb",
+      "type": "data",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x6",
+      "source": "tim.o",
+      "target": "aru.i",
+      "type": "data",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x7",
+      "source": "tim.o",
+      "target": "dpll.tim",
+      "type": "data",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x8",
+      "source": "dpll.o",
+      "target": "aru.i",
+      "type": "data",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x9",
+      "source": "aru.o",
+      "target": "atom.aru",
+      "type": "data",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x10",
+      "source": "atom.aruo",
+      "target": "aru.i",
+      "type": "data",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x11",
+      "source": "aru.o",
+      "target": "mcs.aru",
+      "type": "data",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x12",
+      "source": "mcs.out",
+      "target": "aru.i",
+      "type": "data",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x13",
+      "source": "mcs.mem",
+      "target": "psm.i",
+      "type": "data",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x14",
+      "source": "tim.irq",
+      "target": "icm.i",
+      "type": "irq",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x15",
+      "source": "tom.irq",
+      "target": "icm.i",
+      "type": "irq",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x16",
+      "source": "atom.irq",
+      "target": "icm.i",
+      "type": "irq",
+      "ev": {
+        "level": "示意"
+      }
+    }
+  ],
+  "registers": {},
+  "scenes": [],
+  "rules": [],
+  "timings": []
+}

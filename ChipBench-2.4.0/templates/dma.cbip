@@ -1,0 +1,220 @@
+{
+  "schema": "chipbench.ip/1",
+  "id": "tpl-dma",
+  "name": "通用 DMA 控制器",
+  "kind": "template",
+  "rev": 2,
+  "chip": "",
+  "family": "",
+  "extends": "",
+  "source": "",
+  "docrev": "",
+  "description": "通用结构模板，只描述结构；寄存器、地址、时序数值请对照具体芯片手册补充。",
+  "refs": [],
+  "nodes": [
+    {
+      "id": "top",
+      "type": "periph",
+      "kind": "periph",
+      "name": "通用 DMA 控制器",
+      "params": {},
+      "ports": [
+        {
+          "id": "bus",
+          "type": "bus",
+          "dir": "in"
+        },
+        {
+          "id": "clk",
+          "type": "clock",
+          "dir": "in"
+        },
+        {
+          "id": "rst",
+          "type": "reset",
+          "dir": "in"
+        },
+        {
+          "id": "irq",
+          "type": "irq",
+          "dir": "out"
+        },
+        {
+          "id": "req",
+          "type": "dma",
+          "dir": "in"
+        },
+        {
+          "id": "m",
+          "type": "bus",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "regif",
+      "type": "logic",
+      "kind": "logic",
+      "name": "寄存器接口",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "o",
+          "type": "ctrl",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "trig",
+      "type": "irq",
+      "kind": "irq",
+      "name": "触发源选择",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "o",
+          "type": "ctrl",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "arb",
+      "type": "logic",
+      "kind": "logic",
+      "name": "通道仲裁",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "i",
+          "type": "ctrl",
+          "dir": "in"
+        },
+        {
+          "id": "o",
+          "type": "ctrl",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "ch",
+      "type": "logic",
+      "kind": "logic",
+      "name": "通道（描述符 / 计数）",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "i",
+          "type": "ctrl",
+          "dir": "in"
+        },
+        {
+          "id": "rd",
+          "type": "bus",
+          "dir": "out"
+        },
+        {
+          "id": "wr",
+          "type": "bus",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "master",
+      "type": "bus",
+      "kind": "bus",
+      "name": "总线主接口",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "i",
+          "type": "bus",
+          "dir": "in"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "x1",
+      "source": "regif.o",
+      "target": "ch.i",
+      "type": "ctrl",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x2",
+      "source": "trig.o",
+      "target": "arb.i",
+      "type": "ctrl",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x3",
+      "source": "arb.o",
+      "target": "ch.i",
+      "type": "ctrl",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x4",
+      "source": "ch.rd",
+      "target": "master.i",
+      "type": "bus",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x5",
+      "source": "ch.wr",
+      "target": "master.i",
+      "type": "bus",
+      "ev": {
+        "level": "示意"
+      }
+    }
+  ],
+  "registers": {},
+  "scenes": [],
+  "rules": [],
+  "timings": []
+}

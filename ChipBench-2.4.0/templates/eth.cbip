@@ -1,0 +1,286 @@
+{
+  "schema": "chipbench.ip/1",
+  "id": "tpl-eth",
+  "name": "通用 以太网 MAC",
+  "kind": "template",
+  "rev": 2,
+  "chip": "",
+  "family": "",
+  "extends": "",
+  "source": "",
+  "docrev": "",
+  "description": "通用结构模板，只描述结构；寄存器、地址、时序数值请对照具体芯片手册补充。",
+  "refs": [],
+  "nodes": [
+    {
+      "id": "top",
+      "type": "periph",
+      "kind": "periph",
+      "name": "通用 以太网 MAC",
+      "params": {},
+      "ports": [
+        {
+          "id": "bus",
+          "type": "bus",
+          "dir": "in"
+        },
+        {
+          "id": "clk",
+          "type": "clock",
+          "dir": "in"
+        },
+        {
+          "id": "rst",
+          "type": "reset",
+          "dir": "in"
+        },
+        {
+          "id": "irq",
+          "type": "irq",
+          "dir": "out"
+        },
+        {
+          "id": "mdio",
+          "type": "io",
+          "dir": "inout"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "regif",
+      "type": "logic",
+      "kind": "logic",
+      "name": "寄存器接口",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "o",
+          "type": "ctrl",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "txdma",
+      "type": "dma",
+      "kind": "dma",
+      "name": "发送 DMA",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "c",
+          "type": "ctrl",
+          "dir": "in"
+        },
+        {
+          "id": "o",
+          "type": "data",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "txfifo",
+      "type": "mem",
+      "kind": "mem",
+      "name": "发送 FIFO",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "i",
+          "type": "data",
+          "dir": "in"
+        },
+        {
+          "id": "o",
+          "type": "data",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "mac",
+      "type": "logic",
+      "kind": "logic",
+      "name": "MAC 核心",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "ctl",
+          "type": "ctrl",
+          "dir": "in"
+        },
+        {
+          "id": "tx",
+          "type": "data",
+          "dir": "in"
+        },
+        {
+          "id": "rx",
+          "type": "data",
+          "dir": "out"
+        },
+        {
+          "id": "mii",
+          "type": "data",
+          "dir": "inout"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "rxfifo",
+      "type": "mem",
+      "kind": "mem",
+      "name": "接收 FIFO",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "i",
+          "type": "data",
+          "dir": "in"
+        },
+        {
+          "id": "o",
+          "type": "data",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "rxdma",
+      "type": "dma",
+      "kind": "dma",
+      "name": "接收 DMA",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "i",
+          "type": "data",
+          "dir": "in"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "phy",
+      "type": "io",
+      "kind": "io",
+      "name": "PHY 接口 (MII / RMII / RGMII)",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "mii",
+          "type": "data",
+          "dir": "inout"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "x1",
+      "source": "regif.o",
+      "target": "mac.ctl",
+      "type": "ctrl",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x2",
+      "source": "regif.o",
+      "target": "txdma.c",
+      "type": "ctrl",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x3",
+      "source": "txdma.o",
+      "target": "txfifo.i",
+      "type": "data",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x4",
+      "source": "txfifo.o",
+      "target": "mac.tx",
+      "type": "data",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x5",
+      "source": "mac.rx",
+      "target": "rxfifo.i",
+      "type": "data",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x6",
+      "source": "rxfifo.o",
+      "target": "rxdma.i",
+      "type": "data",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x7",
+      "source": "mac.mii",
+      "target": "phy.mii",
+      "type": "data",
+      "ev": {
+        "level": "示意"
+      }
+    }
+  ],
+  "registers": {},
+  "scenes": [],
+  "rules": [],
+  "timings": []
+}

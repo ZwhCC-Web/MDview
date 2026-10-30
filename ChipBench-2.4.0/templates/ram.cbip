@@ -1,0 +1,324 @@
+{
+  "schema": "chipbench.ip/1",
+  "id": "tpl-ram",
+  "name": "通用 RAM 与 ECC",
+  "kind": "template",
+  "rev": 2,
+  "chip": "",
+  "family": "",
+  "extends": "",
+  "source": "",
+  "docrev": "",
+  "description": "通用结构模板，只描述结构；寄存器、地址、时序数值请对照具体芯片手册补充。",
+  "refs": [],
+  "nodes": [
+    {
+      "id": "top",
+      "type": "mem",
+      "kind": "mem",
+      "name": "通用 RAM 与 ECC",
+      "params": {},
+      "ports": [
+        {
+          "id": "bus",
+          "type": "bus",
+          "dir": "in"
+        },
+        {
+          "id": "clk",
+          "type": "clock",
+          "dir": "in"
+        },
+        {
+          "id": "rst",
+          "type": "reset",
+          "dir": "in"
+        },
+        {
+          "id": "irq",
+          "type": "irq",
+          "dir": "out"
+        },
+        {
+          "id": "dma",
+          "type": "dma",
+          "dir": "in"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "regif",
+      "type": "logic",
+      "kind": "logic",
+      "name": "寄存器接口",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "o",
+          "type": "ctrl",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "arb",
+      "type": "logic",
+      "kind": "logic",
+      "name": "访问仲裁",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "m0",
+          "type": "data",
+          "dir": "in"
+        },
+        {
+          "id": "m1",
+          "type": "data",
+          "dir": "in"
+        },
+        {
+          "id": "o",
+          "type": "data",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "ecc",
+      "type": "logic",
+      "kind": "logic",
+      "name": "ECC 编解码",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "w",
+          "type": "data",
+          "dir": "in"
+        },
+        {
+          "id": "r",
+          "type": "data",
+          "dir": "in"
+        },
+        {
+          "id": "o",
+          "type": "data",
+          "dir": "out"
+        },
+        {
+          "id": "err",
+          "type": "irq",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "bank0",
+      "type": "mem",
+      "kind": "mem",
+      "name": "存储体 0",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "i",
+          "type": "data",
+          "dir": "in"
+        },
+        {
+          "id": "o",
+          "type": "data",
+          "dir": "out"
+        },
+        {
+          "id": "pwr",
+          "type": "ctrl",
+          "dir": "in"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "bank1",
+      "type": "mem",
+      "kind": "mem",
+      "name": "存储体 1",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "i",
+          "type": "data",
+          "dir": "in"
+        },
+        {
+          "id": "o",
+          "type": "data",
+          "dir": "out"
+        },
+        {
+          "id": "pwr",
+          "type": "ctrl",
+          "dir": "in"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "log",
+      "type": "logic",
+      "kind": "logic",
+      "name": "错误记录",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "e",
+          "type": "irq",
+          "dir": "in"
+        },
+        {
+          "id": "c",
+          "type": "ctrl",
+          "dir": "in"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "pwr",
+      "type": "logic",
+      "kind": "logic",
+      "name": "保持 / 电源控制",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "o",
+          "type": "ctrl",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "x1",
+      "source": "arb.o",
+      "target": "ecc.w",
+      "type": "data",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x2",
+      "source": "ecc.o",
+      "target": "bank0.i",
+      "type": "data",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x3",
+      "source": "ecc.o",
+      "target": "bank1.i",
+      "type": "data",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x4",
+      "source": "bank0.o",
+      "target": "ecc.r",
+      "type": "data",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x5",
+      "source": "bank1.o",
+      "target": "ecc.r",
+      "type": "data",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x6",
+      "source": "ecc.err",
+      "target": "log.e",
+      "type": "irq",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x7",
+      "source": "regif.o",
+      "target": "log.c",
+      "type": "ctrl",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x8",
+      "source": "pwr.o",
+      "target": "bank0.pwr",
+      "type": "ctrl",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x9",
+      "source": "pwr.o",
+      "target": "bank1.pwr",
+      "type": "ctrl",
+      "ev": {
+        "level": "示意"
+      }
+    }
+  ],
+  "registers": {},
+  "scenes": [],
+  "rules": [],
+  "timings": []
+}

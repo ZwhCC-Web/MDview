@@ -1,0 +1,385 @@
+{
+  "schema": "chipbench.ip/1",
+  "id": "tpl-multicore",
+  "name": "通用 多核子系统",
+  "kind": "template",
+  "rev": 2,
+  "chip": "",
+  "family": "",
+  "extends": "",
+  "source": "",
+  "docrev": "",
+  "description": "通用结构模板，只描述结构；寄存器、地址、时序数值请对照具体芯片手册补充。 只画了两个核作为示意；核的数量、是否同构、锁步等请对照手册。",
+  "refs": [],
+  "nodes": [
+    {
+      "id": "top",
+      "type": "cpu",
+      "kind": "cpu",
+      "name": "通用 多核子系统",
+      "params": {},
+      "ports": [
+        {
+          "id": "bus",
+          "type": "bus",
+          "dir": "in"
+        },
+        {
+          "id": "clk",
+          "type": "clock",
+          "dir": "in"
+        },
+        {
+          "id": "rst",
+          "type": "reset",
+          "dir": "in"
+        },
+        {
+          "id": "irq",
+          "type": "irq",
+          "dir": "out"
+        },
+        {
+          "id": "periph",
+          "type": "bus",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "core0",
+      "type": "cpu",
+      "kind": "cpu",
+      "name": "核 0",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "bus",
+          "type": "bus",
+          "dir": "out"
+        },
+        {
+          "id": "irq",
+          "type": "irq",
+          "dir": "in"
+        },
+        {
+          "id": "rst",
+          "type": "reset",
+          "dir": "in"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "core1",
+      "type": "cpu",
+      "kind": "cpu",
+      "name": "核 1",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "bus",
+          "type": "bus",
+          "dir": "out"
+        },
+        {
+          "id": "irq",
+          "type": "irq",
+          "dir": "in"
+        },
+        {
+          "id": "rst",
+          "type": "reset",
+          "dir": "in"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "xbar",
+      "type": "bus",
+      "kind": "bus",
+      "name": "核间互连 / 交叉开关",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "m0",
+          "type": "bus",
+          "dir": "in"
+        },
+        {
+          "id": "m1",
+          "type": "bus",
+          "dir": "in"
+        },
+        {
+          "id": "s0",
+          "type": "bus",
+          "dir": "out"
+        },
+        {
+          "id": "s1",
+          "type": "bus",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "shm",
+      "type": "mem",
+      "kind": "mem",
+      "name": "共享存储",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "bus",
+          "type": "bus",
+          "dir": "in"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "sem",
+      "type": "logic",
+      "kind": "logic",
+      "name": "硬件信号量 / 互斥",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "bus",
+          "type": "bus",
+          "dir": "in"
+        },
+        {
+          "id": "irq",
+          "type": "irq",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "ipc",
+      "type": "irq",
+      "kind": "irq",
+      "name": "核间中断",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "bus",
+          "type": "bus",
+          "dir": "in"
+        },
+        {
+          "id": "ev",
+          "type": "irq",
+          "dir": "in"
+        },
+        {
+          "id": "c0",
+          "type": "irq",
+          "dir": "out"
+        },
+        {
+          "id": "c1",
+          "type": "irq",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "boot",
+      "type": "logic",
+      "kind": "logic",
+      "name": "启动与复位管理",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "bus",
+          "type": "bus",
+          "dir": "in"
+        },
+        {
+          "id": "r0",
+          "type": "reset",
+          "dir": "out"
+        },
+        {
+          "id": "r1",
+          "type": "reset",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "per",
+      "type": "bus",
+      "kind": "bus",
+      "name": "外设桥",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "bus",
+          "type": "bus",
+          "dir": "in"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "x1",
+      "source": "core0.bus",
+      "target": "xbar.m0",
+      "type": "bus",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x2",
+      "source": "core1.bus",
+      "target": "xbar.m1",
+      "type": "bus",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x3",
+      "source": "xbar.s0",
+      "target": "shm.bus",
+      "type": "bus",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x4",
+      "source": "xbar.s1",
+      "target": "sem.bus",
+      "type": "bus",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x5",
+      "source": "xbar.s1",
+      "target": "ipc.bus",
+      "type": "bus",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x6",
+      "source": "xbar.s1",
+      "target": "boot.bus",
+      "type": "bus",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x7",
+      "source": "xbar.s1",
+      "target": "per.bus",
+      "type": "bus",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x8",
+      "source": "sem.irq",
+      "target": "ipc.ev",
+      "type": "irq",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x9",
+      "source": "ipc.c0",
+      "target": "core0.irq",
+      "type": "irq",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x10",
+      "source": "ipc.c1",
+      "target": "core1.irq",
+      "type": "irq",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x11",
+      "source": "boot.r0",
+      "target": "core0.rst",
+      "type": "reset",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x12",
+      "source": "boot.r1",
+      "target": "core1.rst",
+      "type": "reset",
+      "ev": {
+        "level": "示意"
+      }
+    }
+  ],
+  "registers": {},
+  "scenes": [],
+  "rules": [],
+  "timings": []
+}

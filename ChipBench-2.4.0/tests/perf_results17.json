@@ -1,0 +1,108 @@
+{
+ "boot_ms": 37,
+ "dom_content_loaded_ms": 1242,
+ "startup_js_kb": 802,
+ "lazy_modules_pending": 3,
+ "startup_longtasks": 0,
+ "index_docs": 403,
+ "ws_switch_median_ms": 9.4,
+ "ws_switch_p95_ms": 15,
+ "ws_switch_max_ms": 15,
+ "ws_switch_longtasks": 0,
+ "open_md_median_ms": 37.8,
+ "open_md_p95_ms": 134.7,
+ "open_md_longtasks": 7,
+ "open_pdf_median_ms": 629,
+ "open_pdf_p95_ms": 629,
+ "open_pdf_longtasks": 2,
+ "open_xlsx_median_ms": 120.4,
+ "open_xlsx_p95_ms": 120.4,
+ "open_xlsx_longtasks": 1,
+ "open_docx_median_ms": 134.1,
+ "open_docx_p95_ms": 134.1,
+ "open_docx_longtasks": 1,
+ "open_log_median_ms": 29.1,
+ "open_log_p95_ms": 29.1,
+ "open_log_longtasks": 0,
+ "tab_switch_median_ms": 72.9,
+ "tab_switch_p95_ms": 107.9,
+ "input_latency_median_ms": 16.7,
+ "input_latency_p95_ms": 46.3,
+ "longrun_heap_start_mb": 18.2,
+ "longrun_heap_end_mb": 22.2,
+ "longrun_heap_growth_mb": 4.0,
+ "longrun_dom_growth": 1,
+ "longrun_tasks_left": 0,
+ "caches": {
+  "fs-prefetch": [
+   0,
+   48
+  ],
+  "md-images": [
+   0,
+   300
+  ],
+  "md-image-miss": [
+   0,
+   2000
+  ],
+  "math-svg": [
+   0,
+   600
+  ],
+  "link-titles": [
+   0,
+   200
+  ]
+ },
+ "caches_over_limit": 0,
+ "rt_errors": 0,
+ "console_errors": 0,
+ "perf_report": {
+  "uptimeSec": 92,
+  "longTasks": {
+   "count": 454,
+   "totalMs": 41202,
+   "maxMs": 792
+  },
+  "inputLatencyMs": {
+   "n": 0,
+   "p50": 0,
+   "p95": 0,
+   "p99": 0
+  },
+  "memory": {
+   "usedMB": 22.3,
+   "totalMB": 86.2,
+   "limitMB": 2112
+  },
+  "memoryGrowthMB": 9.7,
+  "spans": {
+   "index-build": {
+    "n": 19,
+    "avg": 35,
+    "p95": 167.3,
+    "max": 167.3
+   },
+   "ws-switch": {
+    "n": 19,
+    "avg": 180.8,
+    "p95": 786.8,
+    "max": 786.8
+   },
+   "open-file": {
+    "n": 518,
+    "avg": 16.9,
+    "p95": 54.2,
+    "max": 440.6
+   },
+   "tab-switch": {
+    "n": 61,
+    "avg": 30.1,
+    "p95": 65.6,
+    "max": 87.1
+   }
+  },
+  "counters": {}
+ }
+}

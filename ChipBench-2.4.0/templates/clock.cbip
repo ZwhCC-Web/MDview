@@ -1,0 +1,343 @@
+{
+  "schema": "chipbench.ip/1",
+  "id": "tpl-clock",
+  "name": "通用 时钟与复位系统",
+  "kind": "template",
+  "rev": 2,
+  "chip": "",
+  "family": "",
+  "extends": "",
+  "source": "",
+  "docrev": "",
+  "description": "通用结构模板，只描述结构；寄存器、地址、时序数值请对照具体芯片手册补充。",
+  "refs": [],
+  "nodes": [
+    {
+      "id": "top",
+      "type": "clock",
+      "kind": "clock",
+      "name": "通用 时钟与复位系统",
+      "params": {},
+      "ports": [
+        {
+          "id": "bus",
+          "type": "bus",
+          "dir": "in"
+        },
+        {
+          "id": "clk",
+          "type": "clock",
+          "dir": "in"
+        },
+        {
+          "id": "rst",
+          "type": "reset",
+          "dir": "in"
+        },
+        {
+          "id": "irq",
+          "type": "irq",
+          "dir": "out"
+        },
+        {
+          "id": "clkout",
+          "type": "clock",
+          "dir": "out"
+        },
+        {
+          "id": "rstout",
+          "type": "reset",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "osc",
+      "type": "clock",
+      "kind": "clock",
+      "name": "振荡器 / 外部时钟输入",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "o",
+          "type": "clock",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "pll",
+      "type": "clock",
+      "kind": "clock",
+      "name": "PLL",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "i",
+          "type": "clock",
+          "dir": "in"
+        },
+        {
+          "id": "o",
+          "type": "clock",
+          "dir": "out"
+        },
+        {
+          "id": "lock",
+          "type": "ctrl",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "mux",
+      "type": "clock",
+      "kind": "clock",
+      "name": "时钟源选择",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "a",
+          "type": "clock",
+          "dir": "in"
+        },
+        {
+          "id": "b",
+          "type": "clock",
+          "dir": "in"
+        },
+        {
+          "id": "sel",
+          "type": "ctrl",
+          "dir": "in"
+        },
+        {
+          "id": "o",
+          "type": "clock",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "div",
+      "type": "clock",
+      "kind": "clock",
+      "name": "分频器",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "i",
+          "type": "clock",
+          "dir": "in"
+        },
+        {
+          "id": "o",
+          "type": "clock",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "gate",
+      "type": "clock",
+      "kind": "clock",
+      "name": "时钟门控",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "i",
+          "type": "clock",
+          "dir": "in"
+        },
+        {
+          "id": "en",
+          "type": "ctrl",
+          "dir": "in"
+        },
+        {
+          "id": "o",
+          "type": "clock",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "mon",
+      "type": "logic",
+      "kind": "logic",
+      "name": "时钟监视",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "i",
+          "type": "clock",
+          "dir": "in"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "rstc",
+      "type": "logic",
+      "kind": "logic",
+      "name": "复位控制",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "c",
+          "type": "ctrl",
+          "dir": "in"
+        },
+        {
+          "id": "o",
+          "type": "reset",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "regif",
+      "type": "logic",
+      "kind": "logic",
+      "name": "寄存器接口",
+      "parent": "top",
+      "params": {},
+      "ports": [
+        {
+          "id": "o",
+          "type": "ctrl",
+          "dir": "out"
+        }
+      ],
+      "registers": [],
+      "ev": {
+        "level": "示意"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "x1",
+      "source": "osc.o",
+      "target": "pll.i",
+      "type": "clock",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x2",
+      "source": "osc.o",
+      "target": "mux.a",
+      "type": "clock",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x3",
+      "source": "pll.o",
+      "target": "mux.b",
+      "type": "clock",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x4",
+      "source": "mux.o",
+      "target": "div.i",
+      "type": "clock",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x5",
+      "source": "div.o",
+      "target": "gate.i",
+      "type": "clock",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x6",
+      "source": "osc.o",
+      "target": "mon.i",
+      "type": "clock",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x7",
+      "source": "pll.lock",
+      "target": "rstc.c",
+      "type": "ctrl",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x8",
+      "source": "regif.o",
+      "target": "mux.sel",
+      "type": "ctrl",
+      "ev": {
+        "level": "示意"
+      }
+    },
+    {
+      "id": "x9",
+      "source": "regif.o",
+      "target": "gate.en",
+      "type": "ctrl",
+      "ev": {
+        "level": "示意"
+      }
+    }
+  ],
+  "registers": {},
+  "scenes": [],
+  "rules": [],
+  "timings": []
+}
